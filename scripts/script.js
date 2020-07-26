@@ -91,8 +91,8 @@ function addTrendingLinks(data, limit = 5) {
 
 }
 
-btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); })
-// btn_trending.addEventListener('click', () => { getTrending().then(response => { createImgs(response); }); })
+// HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
+btn_search.addEventListener('click', () => { search(input_search.value,2).then(response => { createImgs(response); }); })
 
 getTrending().then(response => { addTrendingLinks(response) });
 getTrending(3).then(response => { addTrendingImgs(response)});
