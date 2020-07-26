@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        img{width: 360px;}
+        body {
+            text-align: center;
+        }
+        img {
+            width: 360px;
+        }
+        div {
+            border: 2px solid black;
+            margin: 4px;
+        }
     </style>
 </head>
+
 <body>
     <input type="text" id="input_search">
     <button id="btn_search">Search</button>
     <button id='btn_trending'>Get trending</button>
     <div class="gif_container" id="gif_showcase">
-
+        <!--  Dinamically created images go here  -->
     </div>
+    <div id="trending_container">
+        <!--  Trending words -->
+        <h4>Trending</h4>
+        <div id="trending_links_container">
+            <!--  Dinamically updated trending links go here -->
+        </div>
+    </div>
+    <div id="trending_gifs_container">
+        <h3>Trending GIFOS</h3>
+        <p>Mirás los últimos</p>
+        <p>GIFOS de nuestra comunidad</p>
+        <div id="trending_gifs_container">
+            <!--  Dinamically added trending gifs go here  -->
+        </div>
+    </div>
+
 
     <script src="/scripts/script.js"></script>
 </body>
+
 </html>
