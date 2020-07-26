@@ -24,6 +24,7 @@ const div_trendingGifsContainer = document.getElementById('trending_gifs_contain
 //  API variables
 const search_base_url = 'https://api.giphy.com/v1/gifs/search';
 const trending_base_url = 'https://api.giphy.com/v1/gifs/trending';
+const trending_searches_base_url = 'https://api.giphy.com/v1/trending/searches'
 const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
 
 //  Fetch data. Returns unparsed, as is, response from URL. 
@@ -54,6 +55,15 @@ async function getTrending(limit = 12) {
     return response;
 }
 
+//  Triggers a trending searches (like trending "topics")
+//  Returns *unparsed* response
+async function getTrendingSearches() {
+
+    let response = await fetchData(`${trending_searches_base_url}?api_key=${api_key}`);
+
+    return response;
+}
+
 //  Creates and attaches images/gifs to the gifs_container
 //  from data in json format
 function createImgs(data) {
@@ -78,21 +88,22 @@ function addTrendingImgs(data, limit=3) {
 function addTrendingLinks(data, limit = 5) {
 
     for (let i = 0; i < limit; i++) {
+
+        let text = data.data[i];
+
         let a = document.createElement('a');
-        a.innerText = data.data[i].title.split('by')[0] + '  ';
-        a.setAttribute('href','https://www.google.com');
+        a.innerText = text;
+        a.setAttribute('href','https://giphy.com/search/' + text);
         div_trendingLinksContainer.appendChild(a);
         
-        // links += data.data[i].title.split('by')[0] + ' | ';
+        let p = document.createElement('p');
+        p.innerText = ' ';
+        div_trendingLinksContainer.appendChild(p);
     }
-    // let p = document.createElement('p');
-    // p.innerText = links;
-    // div_trendingLinksContainer.appendChild(p);
-
 }
 
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
 btn_search.addEventListener('click', () => { search(input_search.value,2).then(response => { createImgs(response); }); })
 
-getTrending().then(response => { addTrendingLinks(response) });
+getTrendingSearches().then(response => { addTrendingLinks(response) });
 getTrending(3).then(response => { addTrendingImgs(response)});
