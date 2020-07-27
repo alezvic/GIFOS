@@ -7,10 +7,13 @@
 /*  TODO 
 
     1. Where the heck do I put the catches!???
-    2. Clean images after first appendChildren
     3. Add offset to requests
     4. What size of gif is appropiated??
 
+    QUESTIONS
+    1. Search/clean buttons should hide hero image and h1 or just scroll to results?
+    2. What "nuestra comunidad" means? should I search trendings on GIPHY or there is a GIFOS community trending list???
+    3. Share buttons in the footer are sharing buttons or just links to social networks?
  */
 
 //  GUI elements
@@ -141,7 +144,7 @@ function cleanResults() {
     }
 
     for (let i = 0; i < search_result_toggables.length; i++) {
-        search_result_toggables[i].style.display = 'block';
+        search_result_toggables[i].style.display = 'inline-block';
     }
 }
 

@@ -25,6 +25,13 @@ img {
     width: 100px;
 }
 
+#section_hero img {
+    position: relative;
+    top: 5px;
+    width: 273px;
+    margin: 0;
+}
+
 ul {
     display: none;
 }
@@ -92,6 +99,7 @@ input {
     height: 50px;
     position: relative;
     left: 6vw;
+    margin: 0;
 }
 
 .capitalized {
