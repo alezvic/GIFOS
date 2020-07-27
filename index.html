@@ -4,25 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            text-align: center;
-        }
-
-        img {
-            width: 360px;
-        }
-
-        div {
-            border: 2px solid black;
-            margin: 4px;
-        }
-
-        section {
-            border: 2px solid red;
-        }
-    </style>
+    <title>GIFOS</title>
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
@@ -40,7 +23,9 @@
         <!--  h1, hero image, search input, h3, trending links-->
         <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
         <img src="" alt="Hero image">
-        <input type="text" id="input_search">
+        <div class="input_box">
+            <input type="text" id="input_search" placeholder="Busca GIFOS y más">
+        </div>
         <button id="btn_search">Search</button>
         <div class="gif_container" id="gif_showcase">
             <!--  Dinamically created images go here  -->
@@ -53,7 +38,7 @@
     <section id="section_trending">
         <!--  h3, trending gifos-->
         <h3>Trending GIFOS</h3>
-        <p>Mirá los últimos GIFOS de nuestra comunidad</p>
+        <p>Mirá los últimos<br> GIFOS de nuestra comunidad</p>
 
         <div id="trending_gifs_container">
             <!--  Dinamically added trending gifs go here  -->
@@ -62,7 +47,7 @@
     <footer>
         <p>Compartir en:</p>
     </footer>
-    
+
     <script src="/scripts/script.js"></script>
 </body>
 

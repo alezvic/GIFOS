@@ -1,0 +1,99 @@
+//  Fonts
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap");
+$primary_font: "Montserrat";
+$secondary_font: "Roboto";
+
+//  Colors
+$primary_color: #572ee5;
+$search_text_color: #6b7989;
+$footer_icons_color: #cdd6e0;
+$accents_color: #50e3c2;
+$background_color: #ffffff;
+$background_alt_color: #f3f5f8;
+$black_color: #000000;
+
+//  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//  THIS IS FOR TESTING AND ORDER PURPOSES, CLEAN IT BEFORE SHIP IP!!!
+* {
+    color: $primary_color;
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+img {
+    width: 100px;
+}
+
+ul {
+    display: none;
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+h1 {
+    font-family: $primary_font;
+    font-size: 25px;
+    color: $primary_color;
+    line-height: 33px;
+    font-weight: 600;
+    margin-left: 12vw;
+    margin-right: 12vw;
+}
+
+h2 {
+    font-family: $primary_font;
+    font-size: 20px;
+    color: $primary_color;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+h3 {
+    font-family: $primary_font;
+    font-size: 16px;
+    text-align: center;
+    line-height: 25px;
+}
+
+p {
+    font-family: $secondary_font;
+    font-size: 16px;
+    color: $black_color;
+    text-align: center;
+    line-height: 23px;
+    padding: 0 25px 0 25px;
+}
+
+span {
+    color: $accents_color;
+}
+
+input {
+    position: relative;
+    top: 14px;
+    color: $search_text_color;
+    font-family: $secondary_font;
+    font-size: 16px;
+    text-align: left;
+    height: 22px;
+    width: 57vw;
+    border: none;
+    &:focus{
+        outline: none;
+    }
+}
+
+.input_box {
+    background: $background_color;
+    border: 1px solid $primary_color;
+    border-radius: 27px;
+    width: 89vw;
+    height: 50px;
+    position: relative;
+    left: 6vw;
+}
+
+#section_trending {
+    background-color: $background_alt_color;
+}

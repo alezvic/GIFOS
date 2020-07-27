@@ -87,23 +87,32 @@ function addTrendingImgs(data, limit=3) {
 
 function addTrendingLinks(data, limit = 5) {
 
+    let p = document.createElement('p');
+    let text = '';
+
     for (let i = 0; i < limit; i++) {
 
-        let text = data.data[i];
+        text += data.data[i];
+        if(i != limit-1){
+            text += ', ';
+        }
 
-        let a = document.createElement('a');
-        a.innerText = text;
-        a.setAttribute('href','https://giphy.com/search/' + text);
-        div_trendingLinksContainer.appendChild(a);
+        // let a = document.createElement('a');
+        // a.innerText = text;
+        // a.setAttribute('href','https://giphy.com/search/' + text);
+        // div_trendingLinksContainer.appendChild(a);
         
-        let p = document.createElement('p');
-        p.innerText = ' ';
-        div_trendingLinksContainer.appendChild(p);
+        // let p = document.createElement('p');
+        // p.innerText = ' ';
+        // div_trendingLinksContainer.appendChild(p);
     }
+
+    p.innerText = text;
+    div_trendingLinksContainer.appendChild(p);
 }
 
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search.addEventListener('click', () => { search(input_search.value,2).then(response => { createImgs(response); }); })
+btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); })
 
 getTrendingSearches().then(response => { addTrendingLinks(response) });
 getTrending(3).then(response => { addTrendingImgs(response)});

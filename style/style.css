@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap");
+* { color: #572ee5; text-align: center; margin-left: 0; margin-right: 0; }
+
+img { width: 100px; }
+
+ul { display: none; }
+
+h1 { font-family: "Montserrat"; font-size: 25px; color: #572ee5; line-height: 33px; font-weight: 600; margin-left: 12vw; margin-right: 12vw; }
+
+h2 { font-family: "Montserrat"; font-size: 20px; color: #572ee5; text-align: center; line-height: 30px; font-weight: 600; }
+
+h3 { font-family: "Montserrat"; font-size: 16px; text-align: center; line-height: 25px; }
+
+p { font-family: "Roboto"; font-size: 16px; color: #000000; text-align: center; line-height: 23px; padding: 0 25px 0 25px; }
+
+span { color: #50e3c2; }
+
+input { position: relative; top: 14px; color: #6b7989; font-family: "Roboto"; font-size: 16px; text-align: left; height: 22px; width: 57vw; border: none; }
+input:focus { outline: none; }
+
+.input_box { background: #ffffff; border: 1px solid #572ee5; border-radius: 27px; width: 89vw; height: 50px; position: relative; left: 6vw; }
+
+#section_trending { background-color: #f3f5f8; }
+
+/*# sourceMappingURL=style.css.map */
