@@ -94,6 +94,10 @@ input {
     left: 6vw;
 }
 
+.capitalized {
+    text-transform: capitalize;
+}
+
 #section_trending {
     background-color: $background_alt_color;
 }

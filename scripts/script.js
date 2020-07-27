@@ -17,6 +17,7 @@
 const input_search = document.getElementById('input_search');
 const btn_search = document.getElementById('btn_search');
 const btn_trending = document.getElementById('btn_trending');
+const btn_clean = document.getElementById('btn_clean');
 const div_gifShowcase = document.getElementById('gif_showcase');
 const div_trendingLinksContainer = document.getElementById('trending_links_container');
 const div_trendingGifsContainer = document.getElementById('trending_gifs_container');
@@ -68,19 +69,32 @@ async function getTrendingSearches() {
 //  from data in json format
 function createImgs(data) {
 
+    let div_results_container = document.createElement('div');
+    div_results_container.classList = 'results_container';
+    div_results_container.id = 'div_results_container';
+    div_gifShowcase.appendChild(div_results_container);
+
+    let h1 = document.createElement('h1');
+    h1.classList = 'capitalized search_result_toggable';
+    h1.innerText = input_search.value;
+    div_results_container.appendChild(h1);
+
+    console.log(input_search.value);
+
     for (let i = 0; i < data.data.length; i++) {
         let gif_img = document.createElement('img');
+        gif_img.classList = ['search_result_toggable'];
         gif_img.setAttribute('src', data.data[i].images.downsized_large.url);
-        div_gifShowcase.appendChild(gif_img);
+        div_results_container.appendChild(gif_img);
     }
 }
 
-function addTrendingImgs(data, limit=3) {
+function addTrendingImgs(data, limit = 3) {
 
     for (let i = 0; i < data.data.length; i++) {
         let gif_img = document.createElement('img');
         gif_img.setAttribute('src', data.data[i].images.downsized_large.url);
-        div_trendingGifsContainer.appendChild(gif_img);         
+        div_trendingGifsContainer.appendChild(gif_img);
     }
 
 }
@@ -93,7 +107,7 @@ function addTrendingLinks(data, limit = 5) {
     for (let i = 0; i < limit; i++) {
 
         text += data.data[i];
-        if(i != limit-1){
+        if (i != limit - 1) {
             text += ', ';
         }
 
@@ -101,7 +115,7 @@ function addTrendingLinks(data, limit = 5) {
         // a.innerText = text;
         // a.setAttribute('href','https://giphy.com/search/' + text);
         // div_trendingLinksContainer.appendChild(a);
-        
+
         // let p = document.createElement('p');
         // p.innerText = ' ';
         // div_trendingLinksContainer.appendChild(p);
@@ -111,8 +125,19 @@ function addTrendingLinks(data, limit = 5) {
     div_trendingLinksContainer.appendChild(p);
 }
 
+function cleanResults() {
+    
+    input_search.value = null;
+    let throwaway_div = document.getElementById('div_results_container');
+
+    if (throwaway_div.parentNode) {
+        throwaway_div.parentNode.removeChild(throwaway_div);
+    }
+}
+
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); })
+btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); });
+btn_clean.addEventListener('click', () => cleanResults());
 
 getTrendingSearches().then(response => { addTrendingLinks(response) });
-getTrending(3).then(response => { addTrendingImgs(response)});
+getTrending(3).then(response => { addTrendingImgs(response) });
