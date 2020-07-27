@@ -21,6 +21,7 @@ const btn_clean = document.getElementById('btn_clean');
 const div_gifShowcase = document.getElementById('gif_showcase');
 const div_trendingLinksContainer = document.getElementById('trending_links_container');
 const div_trendingGifsContainer = document.getElementById('trending_gifs_container');
+const search_result_toggables = document.getElementsByClassName('search_result_toggable');
 
 //  API variables
 const search_base_url = 'https://api.giphy.com/v1/gifs/search';
@@ -68,6 +69,11 @@ async function getTrendingSearches() {
 //  Creates and attaches images/gifs to the gifs_container
 //  from data in json format
 function createImgs(data) {
+
+    for (let i = 0; i < search_result_toggables.length; i++) {
+        search_result_toggables[i].style.display = 'none';
+    }
+    search_result_toggables[0].style.display = 'none';
 
     let div_results_container = document.createElement('div');
     div_results_container.classList = 'results_container';
@@ -132,6 +138,10 @@ function cleanResults() {
 
     if (throwaway_div.parentNode) {
         throwaway_div.parentNode.removeChild(throwaway_div);
+    }
+
+    for (let i = 0; i < search_result_toggables.length; i++) {
+        search_result_toggables[i].style.display = 'block';
     }
 }
 
