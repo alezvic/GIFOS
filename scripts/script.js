@@ -25,6 +25,7 @@ const div_gifShowcase = document.getElementById('gif_showcase');
 const div_trendingLinksContainer = document.getElementById('trending_links_container');
 const div_trendingGifsContainer = document.getElementById('trending_gifs_container');
 const search_result_toggables = document.getElementsByClassName('search_result_toggable');
+const btn_show_more = document.getElementById('btn_show_more');
 
 //  API variables
 const search_base_url = 'https://api.giphy.com/v1/gifs/search';
@@ -46,7 +47,7 @@ async function fetchData(url) {
 //  Returns *unparsed* response
 async function search(query, limit = 12, offset = 0) {
 
-    let response = await fetchData(`${search_base_url}?q=${query}&api_key=${api_key}&limit=${limit}`);
+    let response = await fetchData(`${search_base_url}?q=${query}&api_key=${api_key}&limit=${limit}&offset=${offset}`);
 
     return response;
 }
@@ -96,6 +97,8 @@ function createImgs(data) {
         gif_img.setAttribute('src', data.data[i].images.downsized_large.url);
         div_results_container.appendChild(gif_img);
     }
+
+    btn_show_more.style.display = 'inline-block';
 }
 
 function addTrendingImgs(data, limit = 3) {
@@ -149,8 +152,9 @@ function cleanResults() {
 }
 
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); });
-btn_clean.addEventListener('click', () => cleanResults());
+btn_search      .addEventListener('click',  () => { search(input_search.value).then(response => { createImgs(response); }); });
+btn_clean       .addEventListener('click',  () => { cleanResults() });
+// btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { createImgs(response); }); });
 
-getTrendingSearches().then(response => { addTrendingLinks(response) });
-getTrending(3).then(response => { addTrendingImgs(response) });
+getTrendingSearches()   .then(response => { addTrendingLinks(response) });
+getTrending(3)          .then(response => { addTrendingImgs(response) });

@@ -24,6 +24,10 @@ input:focus { outline: none; }
 
 .capitalized { text-transform: capitalize; }
 
+.icon_social { height: 20px; max-width: 20px; }
+
 #section_trending { background-color: #f3f5f8; }
+
+#btn_show_more { display: none; }
 
 /*# sourceMappingURL=style.css.map */
