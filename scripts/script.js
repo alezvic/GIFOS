@@ -16,6 +16,7 @@
     3. Share buttons in the footer are sharing buttons or just links to social networks?
  */
 
+//  VARIABLES
 //  GUI elements
 const input_search = document.getElementById('input_search');
 const btn_search = document.getElementById('btn_search');
@@ -26,11 +27,16 @@ const div_trendingLinksContainer = document.getElementById('trending_links_conta
 const div_trendingGifsContainer = document.getElementById('trending_gifs_container');
 const search_result_toggables = document.getElementsByClassName('search_result_toggable');
 const btn_show_more = document.getElementById('btn_show_more');
+const div_search_suggestions = document.getElementById('div_suggestions');
+
+// Aux
+const btn_autocomplete = document.getElementById('btn_autocomplete');
 
 //  API variables
 const search_base_url = 'https://api.giphy.com/v1/gifs/search';
 const trending_base_url = 'https://api.giphy.com/v1/gifs/trending';
-const trending_searches_base_url = 'https://api.giphy.com/v1/trending/searches'
+const trending_searches_base_url = 'https://api.giphy.com/v1/trending/searches';
+const autocomplete_base_url = 'https://api.giphy.com/v1/gifs/search/tags';
 const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
 
 //  Fetch data. Returns unparsed, as is, response from URL. 
@@ -48,6 +54,13 @@ async function fetchData(url) {
 async function search(query, limit = 12, offset = 0) {
 
     let response = await fetchData(`${search_base_url}?q=${query}&api_key=${api_key}&limit=${limit}&offset=${offset}`);
+
+    return response;
+}
+
+async function getAutocompleteSuggestions(query) {
+
+    let response = await fetchData(`${autocomplete_base_url}?q=${query}&api_key=${api_key}`);
 
     return response;
 }
@@ -138,23 +151,65 @@ function addTrendingLinks(data, limit = 5) {
 }
 
 function cleanResults() {
-    
+
     input_search.value = null;
     let throwaway_div = document.getElementById('div_results_container');
 
-    if (throwaway_div.parentNode) {
-        throwaway_div.parentNode.removeChild(throwaway_div);
-    }
+    throwaway_div.innerHTML = null;
+
+    // if (throwaway_div.parentNode) {
+    //     throwaway_div.parentNode.removeChild(throwaway_div);
+    // }
 
     for (let i = 0; i < search_result_toggables.length; i++) {
         search_result_toggables[i].style.display = 'inline-block';
     }
 }
 
+function addSuggestions(payload) {
+
+    cleanSuggestions();
+
+    for (let i = 0; i < payload.data.length; i++) {
+        let p = document.createElement('p');
+        p.innerText = payload.data[i].name;
+        p.addEventListener('click', ()=> {
+            cleanSuggestions();
+            input_search.value = payload.data[i].name;
+            search(input_search.value).then(response => { createImgs(response); });
+        })
+
+        div_search_suggestions.appendChild(p);
+    }
+
+}
+
+function cleanSuggestions() {
+    div_search_suggestions.innerHTML = null;
+}
+
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search      .addEventListener('click',  () => { search(input_search.value).then(response => { createImgs(response); }); });
-btn_clean       .addEventListener('click',  () => { cleanResults() });
+btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); });
+btn_clean.addEventListener('click', () => { cleanResults() });
+
+btn_autocomplete.addEventListener('click', () => {
+    getAutocompleteSuggestions(input_search.value)
+        .then(response => { addSuggestions(response); });
+});
+
+
 // btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { createImgs(response); }); });
 
-getTrendingSearches()   .then(response => { addTrendingLinks(response) });
-getTrending(3)          .then(response => { addTrendingImgs(response) });
+
+input_search.addEventListener('input', () => {
+
+    if (input_search.value.length > 2) {
+        getAutocompleteSuggestions(input_search.value).then(response => { addSuggestions(response); });
+    }
+     if (input_search.value.length == 0) {        
+        cleanSuggestions();
+    }
+});
+
+getTrendingSearches().then(response => { addTrendingLinks(response) });
+getTrending(3).then(response => { addTrendingImgs(response) });

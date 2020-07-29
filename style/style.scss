@@ -25,11 +25,13 @@ img {
     width: 100px;
 }
 
-#section_hero img {
-    position: relative;
-    top: 5px;
-    width: 273px;
-    margin: 0;
+#section_hero {
+    .img_hero {
+        position: relative;
+        top: 5px;
+        width: 273px;
+        margin: 0;
+    }
 }
 
 ul {
@@ -78,7 +80,7 @@ span {
 
 input {
     position: relative;
-    top: 14px;
+    top: 11px;
     color: $search_text_color;
     font-family: $secondary_font;
     font-size: 16px;
@@ -86,7 +88,7 @@ input {
     height: 22px;
     width: 57vw;
     border: none;
-    &:focus{
+    &:focus {
         outline: none;
     }
 }
@@ -100,6 +102,12 @@ input {
     position: relative;
     left: 6vw;
     margin: 0;
+    .icon_search {
+        position: relative;
+        top: 15px;
+        right: -25px;
+        width: 20px;
+    }
 }
 
 .capitalized {
@@ -117,4 +125,13 @@ input {
 
 #btn_show_more {
     display: none;
+}
+
+#div_suggestions {
+    position: relative;
+    width: 89vw;
+    left: 6vw;
+    background: #ffffff;
+    border: 1px solid #572ee5;
+    border-radius: 27px;
 }
