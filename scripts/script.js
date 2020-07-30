@@ -53,6 +53,7 @@ async function fetchData(url) {
 //  Returns *unparsed* response
 async function search(query, limit = 12, offset = 0) {
 
+    cleanSuggestions();
     let response = await fetchData(`${search_base_url}?q=${query}&api_key=${api_key}&limit=${limit}&offset=${offset}`);
 
     return response;
@@ -126,15 +127,35 @@ function addTrendingImgs(data, limit = 3) {
 
 function addTrendingLinks(data, limit = 5) {
 
-    let p = document.createElement('p');
-    let text = '';
+    // let p = document.createElement('p');
+    let innerHTML = '';
 
     for (let i = 0; i < limit; i++) {
 
-        text += data.data[i];
-        if (i != limit - 1) {
-            text += ', ';
+        let span = document.createElement('span');
+        span.classList.add('span_trending');
+        span.classList.add('capitalized');
+        span.innerText = data.data[i];
+        span.addEventListener('click',() => {
+            input_search.value = data.data[i];
+            search(input_search.value).then((response) => { createImgs(response);} );
+        });
+
+        if (i > 0 && i != limit) {
+            let span_comma = document.createElement('span');
+            span_comma.classList.add('span_trending');
+            span_comma.innerText = ', ';
+            div_trendingLinksContainer.appendChild(span_comma);
         }
+
+        div_trendingLinksContainer.appendChild(span);
+
+        // innerHTML += `<a href='#' class='trending_link'>${data.data[i]}</a>`
+
+        // text += data.data[i];
+        // if (i != limit - 1) {
+        //     text += ', ';
+        // }
 
         // let a = document.createElement('a');
         // a.innerText = text;
@@ -146,8 +167,9 @@ function addTrendingLinks(data, limit = 5) {
         // div_trendingLinksContainer.appendChild(p);
     }
 
-    p.innerText = text;
-    div_trendingLinksContainer.appendChild(p);
+    // p.innerText = text;
+    // div_trendingLinksContainer.innerHTML = innerHTML;
+    // div_trendingLinksContainer.appendChild(p);
 }
 
 function cleanResults() {
@@ -173,7 +195,7 @@ function addSuggestions(payload) {
     for (let i = 0; i < payload.data.length; i++) {
         let p = document.createElement('p');
         p.innerText = payload.data[i].name;
-        p.addEventListener('click', ()=> {
+        p.addEventListener('click', () => {
             cleanSuggestions();
             input_search.value = payload.data[i].name;
             search(input_search.value).then(response => { createImgs(response); });
@@ -192,10 +214,10 @@ function cleanSuggestions() {
 btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); });
 btn_clean.addEventListener('click', () => { cleanResults() });
 
-btn_autocomplete.addEventListener('click', () => {
-    getAutocompleteSuggestions(input_search.value)
-        .then(response => { addSuggestions(response); });
-});
+// btn_autocomplete.addEventListener('click', () => {
+//     getAutocompleteSuggestions(input_search.value)
+//         .then(response => { addSuggestions(response); });
+// });
 
 
 // btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { createImgs(response); }); });
@@ -206,7 +228,7 @@ input_search.addEventListener('input', () => {
     if (input_search.value.length > 2) {
         getAutocompleteSuggestions(input_search.value).then(response => { addSuggestions(response); });
     }
-     if (input_search.value.length == 0) {        
+    if (input_search.value.length == 0) {
         cleanSuggestions();
     }
 });

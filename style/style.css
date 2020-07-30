@@ -31,6 +31,8 @@ input:focus { outline: none; }
 
 #btn_show_more { display: none; }
 
+.span_trending { color: #572ee5; }
+
 #div_suggestions { position: relative; width: 89vw; left: 6vw; background: #ffffff; border: 1px solid #572ee5; border-radius: 27px; }
 
 /*# sourceMappingURL=style.css.map */
