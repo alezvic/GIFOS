@@ -22,12 +22,13 @@ const input_search = document.getElementById('input_search');
 const btn_search = document.getElementById('btn_search');
 const btn_trending = document.getElementById('btn_trending');
 const btn_clean = document.getElementById('btn_clean');
-const div_gifShowcase = document.getElementById('gif_showcase');
+const div_gifShowcase = document.getElementById('gif_results_showcase');
 const div_trendingLinksContainer = document.getElementById('trending_links_container');
 const div_trendingGifsContainer = document.getElementById('trending_gifs_container');
 const search_result_toggables = document.getElementsByClassName('search_result_toggable');
 const btn_show_more = document.getElementById('btn_show_more');
 const div_search_suggestions = document.getElementById('div_suggestions');
+const h1_searchQuery = document.getElementById('search_h1');
 
 // Aux
 const btn_autocomplete = document.getElementById('btn_autocomplete');
@@ -86,22 +87,11 @@ async function getTrendingSearches() {
 
 //  Creates and attaches images/gifs to the gifs_container
 //  from data in json format
-function createImgs(data) {
+function addGifs(data) {
 
-    for (let i = 0; i < search_result_toggables.length; i++) {
-        search_result_toggables[i].style.display = 'none';
-    }
-    search_result_toggables[0].style.display = 'none';
+    div_gifShowcase.innerHTML = null;
 
-    let div_results_container = document.createElement('div');
-    div_results_container.classList = 'results_container';
-    div_results_container.id = 'div_results_container';
-    div_gifShowcase.appendChild(div_results_container);
-
-    let h1 = document.createElement('h1');
-    h1.classList = 'capitalized search_result_toggable';
-    h1.innerText = input_search.value;
-    div_results_container.appendChild(h1);
+    h1_searchQuery.innerText = input_search.value;
 
     console.log(input_search.value);
 
@@ -109,7 +99,7 @@ function createImgs(data) {
         let gif_img = document.createElement('img');
         gif_img.classList = ['search_result_toggable'];
         gif_img.setAttribute('src', data.data[i].images.downsized_large.url);
-        div_results_container.appendChild(gif_img);
+        div_gifShowcase.appendChild(gif_img);
     }
 
     btn_show_more.style.display = 'inline-block';
@@ -127,7 +117,6 @@ function addTrendingImgs(data, limit = 3) {
 
 function addTrendingLinks(data, limit = 5) {
 
-    // let p = document.createElement('p');
     let innerHTML = '';
 
     for (let i = 0; i < limit; i++) {
@@ -138,7 +127,7 @@ function addTrendingLinks(data, limit = 5) {
         span.innerText = data.data[i];
         span.addEventListener('click',() => {
             input_search.value = data.data[i];
-            search(input_search.value).then((response) => { createImgs(response);} );
+            search(input_search.value).then((response) => { addGifs(response);} );
         });
 
         if (i > 0 && i != limit) {
@@ -149,43 +138,20 @@ function addTrendingLinks(data, limit = 5) {
         }
 
         div_trendingLinksContainer.appendChild(span);
-
-        // innerHTML += `<a href='#' class='trending_link'>${data.data[i]}</a>`
-
-        // text += data.data[i];
-        // if (i != limit - 1) {
-        //     text += ', ';
-        // }
-
-        // let a = document.createElement('a');
-        // a.innerText = text;
-        // a.setAttribute('href','https://giphy.com/search/' + text);
-        // div_trendingLinksContainer.appendChild(a);
-
-        // let p = document.createElement('p');
-        // p.innerText = ' ';
-        // div_trendingLinksContainer.appendChild(p);
     }
-
-    // p.innerText = text;
-    // div_trendingLinksContainer.innerHTML = innerHTML;
-    // div_trendingLinksContainer.appendChild(p);
 }
 
-function cleanResults() {
+function cleanGifs() {
+
+    h1_searchQuery.innerText = null;
+    div_gifShowcase.innerHTML = null;
+}
+
+function cleanAll() {
 
     input_search.value = null;
-    let throwaway_div = document.getElementById('div_results_container');
-
-    throwaway_div.innerHTML = null;
-
-    // if (throwaway_div.parentNode) {
-    //     throwaway_div.parentNode.removeChild(throwaway_div);
-    // }
-
-    for (let i = 0; i < search_result_toggables.length; i++) {
-        search_result_toggables[i].style.display = 'inline-block';
-    }
+    h1_searchQuery.innerText = null;
+    div_gifShowcase.innerHTML = null;
 }
 
 function addSuggestions(payload) {
@@ -198,7 +164,7 @@ function addSuggestions(payload) {
         p.addEventListener('click', () => {
             cleanSuggestions();
             input_search.value = payload.data[i].name;
-            search(input_search.value).then(response => { createImgs(response); });
+            search(input_search.value).then(response => { addGifs(response); });
         })
 
         div_search_suggestions.appendChild(p);
@@ -211,8 +177,8 @@ function cleanSuggestions() {
 }
 
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search.addEventListener('click', () => { search(input_search.value).then(response => { createImgs(response); }); });
-btn_clean.addEventListener('click', () => { cleanResults() });
+btn_search.addEventListener('click', () => { search(input_search.value).then(response => { addGifs(response); }); });
+btn_clean.addEventListener('click', () => { cleanAll() });
 
 // btn_autocomplete.addEventListener('click', () => {
 //     getAutocompleteSuggestions(input_search.value)
@@ -220,7 +186,7 @@ btn_clean.addEventListener('click', () => { cleanResults() });
 // });
 
 
-// btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { createImgs(response); }); });
+// btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { addGifs(response); }); });
 
 
 input_search.addEventListener('input', () => {
