@@ -25,6 +25,8 @@ input:focus { outline: none; }
 
 .capitalized { text-transform: capitalize; }
 
+.hidden { display: none; }
+
 .icon_social { height: 20px; max-width: 20px; }
 
 #section_trending { background-color: #f3f5f8; }

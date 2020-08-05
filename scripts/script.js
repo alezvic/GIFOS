@@ -43,6 +43,7 @@ const autocomplete_base_url = 'https://api.giphy.com/v1/gifs/search/tags';
 const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
 
 var trendingOffset = 0;
+var searchMode = true;
 
 //  Fetch data. Returns unparsed, as is, response from URL. 
 //  Use this function to serve ***ANY*** request to Giphy
@@ -59,6 +60,8 @@ async function fetchData(url) {
 async function search(query, limit = 12, offset = 0) {
 
     cleanSuggestions();
+    searchMode = !searchMode;
+    btn_search.setAttribute('src', 'assets/images/close.svg');
     let response = await fetchData(`${search_base_url}?q=${query}&api_key=${api_key}&limit=${limit}&offset=${offset}`);
 
     return response;
@@ -132,6 +135,7 @@ function addTrendingLinks(data, limit = 5) {
         span.classList.add('capitalized');
         span.innerText = data.data[i];
         span.addEventListener('click', () => {
+            
             input_search.value = data.data[i];
             search(input_search.value).then((response) => { addGifs(response); });
         });
@@ -183,8 +187,21 @@ function cleanSuggestions() {
 }
 
 // HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
-btn_search.addEventListener('click', () => { search(input_search.value).then(response => { addGifs(response); }); });
-btn_clean.addEventListener('click', () => { cleanAll() });
+btn_search.addEventListener('click', () => {
+
+    if (searchMode) {
+        search(input_search.value).then(response => { addGifs(response); });
+    }
+    else {
+        cleanAll();
+        btn_search.setAttribute('src', 'assets/icons/icon-search.svg');
+    }
+    console.log(searchMode);
+    searchMode = !searchMode;
+});
+
+
+// btn_clean.addEventListener('click', () => { cleanAll() });
 
 input_search.addEventListener('input', () => {
 
@@ -193,6 +210,12 @@ input_search.addEventListener('input', () => {
     }
     if (input_search.value.length == 0) {
         cleanSuggestions();
+    }
+});
+
+input_search.addEventListener('keydown', event => {
+    if(event.keyCode === 13) {
+        search(input_search.value).then(response => { addGifs(response); });
     }
 });
 
