@@ -30,7 +30,7 @@ const btn_show_more = document.getElementById('btn_show_more');
 const div_search_suggestions = document.getElementById('div_suggestions');
 const h1_searchQuery = document.getElementById('search_h1');
 const btn_carouselNext = document.getElementById('btn_next');
-const btn_carouselPrevious = document.getElementById('btn_previous')
+const btn_carouselPrevious = document.getElementById('btn_previous');
 
 // Aux
 const btn_autocomplete = document.getElementById('btn_autocomplete');
