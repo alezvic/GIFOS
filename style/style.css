@@ -7,6 +7,8 @@ img { width: 100px; }
 
 ul { display: none; }
 
+#video_cam_preview { width: 300px; }
+
 h1 { font-family: "Montserrat"; font-size: 25px; color: #572ee5; line-height: 33px; font-weight: 600; margin-left: 12vw; margin-right: 12vw; }
 
 h2 { font-family: "Montserrat"; font-size: 20px; color: #572ee5; text-align: center; line-height: 30px; font-weight: 600; }

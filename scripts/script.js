@@ -42,7 +42,11 @@ const trending_searches_base_url = 'https://api.giphy.com/v1/trending/searches';
 const autocomplete_base_url = 'https://api.giphy.com/v1/gifs/search/tags';
 const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
 
+const defaultOffset = 12;
+const defaultLimit = 12;
+
 var trendingOffset = 0;
+var searchOffset = 0;
 var searchMode = true;
 
 //  Fetch data. Returns unparsed, as is, response from URL. 
@@ -57,7 +61,7 @@ async function fetchData(url) {
 
 //  Triggers a search with $limit number of results and $offset pagination. 
 //  Returns *unparsed* response
-async function search(query, limit = 12, offset = 0) {
+async function search(query, offset = 0, limit = defaultLimit) {
 
     cleanSuggestions();
     searchMode = !searchMode;
@@ -101,7 +105,17 @@ function addGifs(data) {
 
     h1_searchQuery.innerText = input_search.value;
 
-    console.log(input_search.value);
+    for (let i = 0; i < data.data.length; i++) {
+        let gif_img = document.createElement('img');
+        gif_img.classList = ['search_result_toggable'];
+        gif_img.setAttribute('src', data.data[i].images.downsized_large.url);
+        div_gifShowcase.appendChild(gif_img);
+    }
+
+    btn_show_more.style.display = 'inline-block';
+}
+
+function addMoreGifs(data) {
 
     for (let i = 0; i < data.data.length; i++) {
         let gif_img = document.createElement('img');
@@ -135,7 +149,7 @@ function addTrendingLinks(data, limit = 5) {
         span.classList.add('capitalized');
         span.innerText = data.data[i];
         span.addEventListener('click', () => {
-            
+
             input_search.value = data.data[i];
             search(input_search.value).then((response) => { addGifs(response); });
         });
@@ -186,23 +200,33 @@ function cleanSuggestions() {
     div_search_suggestions.innerHTML = null;
 }
 
-// HARDCODED 2 GIFS ONLY TO TEST!!! DELETE AFTERWARDS!!!!!!!
+//  Search CTAs
 btn_search.addEventListener('click', () => {
 
-    if (searchMode) {
-        search(input_search.value).then(response => { addGifs(response); });
+    if (input_search.value != null && input_search.value != '') {
+        console.log(input_search.value);
+        if (searchMode) {
+            search(input_search.value).then(response => { addGifs(response); });
+        }
+        else {
+            cleanAll();
+            btn_search.setAttribute('src', 'assets/icons/icon-search.svg');
+        }
+        searchMode = !searchMode;
     }
-    else {
-        cleanAll();
-        btn_search.setAttribute('src', 'assets/icons/icon-search.svg');
-    }
-    console.log(searchMode);
-    searchMode = !searchMode;
+
 });
 
+input_search.addEventListener('keydown', event => {
+    if (input_search.value != null && input_search.value != '') {
+        if (event.keyCode === 13) {
+            search(input_search.value).then(response => { addGifs(response); });
+        }
+    }
 
-// btn_clean.addEventListener('click', () => { cleanAll() });
+});
 
+// Suggestions 
 input_search.addEventListener('input', () => {
 
     if (input_search.value.length > 2) {
@@ -213,12 +237,13 @@ input_search.addEventListener('input', () => {
     }
 });
 
-input_search.addEventListener('keydown', event => {
-    if(event.keyCode === 13) {
-        search(input_search.value).then(response => { addGifs(response); });
-    }
+//  Show more button
+btn_show_more.addEventListener('click', () => {
+    searchOffset += defaultOffset;
+    search(input_search.value, searchOffset).then(response => { addMoreGifs(response); });
 });
 
+//  Carousel button CTAs
 btn_carouselPrevious.addEventListener('click', () => {
     if (trendingOffset != 0) {
         if (trendingOffset <= 3) {
@@ -242,11 +267,3 @@ btn_carouselNext.addEventListener('click', () => {
 
 getTrendingSearches().then(response => { addTrendingLinks(response) });
 getTrending().then(response => { addTrendingImgs(response) });
-
-// btn_autocomplete.addEventListener('click', () => {
-//     getAutocompleteSuggestions(input_search.value)
-//         .then(response => { addSuggestions(response); });
-// });
-
-
-// btn_show_more   .addEventListener('click',  () => { search(input_search.value,12,12).then(response => { addGifs(response); }); });

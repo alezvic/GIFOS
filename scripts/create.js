@@ -4,6 +4,8 @@
 // GUI Elements
 const div_cam_preview = document.getElementById('video_cam_preview');
 const btn_record = document.getElementById('btn_record');
+const btn_stop = document.getElementById('bt_stop');
+const btn_upload = document.getElementById('btn_upload');
 
 async function getStreamAndRecord() {
     let stream = null;
@@ -25,6 +27,5 @@ async function getStreamAndRecord() {
 
 btn_record.addEventListener('click', () => {
     console.log('button');
-    // playVideoPreview();
     getStreamAndRecord();
 });
