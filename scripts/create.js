@@ -6,6 +6,7 @@ const div_cam_preview = document.getElementById('video_cam_preview');
 const btn_record = document.getElementById('btn_record');
 const btn_stop = document.getElementById('btn_stop');
 const btn_upload = document.getElementById('btn_upload');
+const link_gif = document.getElementById('linkgif');
 const stream = null;
 let recorder = null;
 let form = new FormData();
@@ -59,7 +60,8 @@ async function upload() {
         res = result;
         console.log(res); 
         console.log(res['data']['id']);   
-        alert('https://giphy.com/gifs/' + res['data']['id'])    
+        link_gif.setAttribute('href', 'https://giphy.com/gifs/'+res['data']['id']);
+    
     })
     .catch(err => {
         console.log(err);
