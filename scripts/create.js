@@ -61,7 +61,7 @@ async function upload() {
         console.log(res); 
         console.log(res['data']['id']);   
         link_gif.setAttribute('href', 'https://giphy.com/gifs/'+res['data']['id']);
-    
+        link_gif.innerText='Ahora si!';
     })
     .catch(err => {
         console.log(err);
