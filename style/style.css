@@ -1,11 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap");
-* { color: #572ee5; text-align: center; margin-left: 0; margin-right: 0; }
+* { color: #572ee5; text-align: center; margin: 0; box-sizing: border-box; }
 
 img { width: 100px; }
 
 #section_hero .img_hero { position: relative; top: 5px; width: 273px; margin: 0; }
-
-ul { display: none; }
 
 #video_cam_preview { width: 300px; }
 
@@ -38,5 +36,16 @@ input:focus { outline: none; }
 .span_trending { color: #572ee5; }
 
 #div_suggestions { position: relative; width: 89vw; left: 6vw; background: #ffffff; border: 1px solid #572ee5; border-radius: 27px; }
+
+nav { display: flex; }
+
+.img_logo { position: relative; right: 0; width: 48px; height: 48px; }
+
+.menu-btn { position: relative; float: right; display: flex; justify-content: center; align-items: center; padding: 0; width: 15px; height: 14px; }
+
+.menu-btn__burger { width: 15px; height: 2px; background: black; border-radius: 1px; }
+.menu-btn__burger::before, .menu-btn__burger::after { content: ''; left: 0; width: 100%; position: absolute; height: 2px; background: black; border-radius: 1px; }
+.menu-btn__burger::before { transform: translateY(-5px); }
+.menu-btn__burger::after { transform: translateY(5px); }
 
 /*# sourceMappingURL=style.css.map */

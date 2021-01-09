@@ -17,8 +17,8 @@ $black_color: #000000;
 * {
     color: $primary_color;
     text-align: center;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 img {
@@ -32,10 +32,6 @@ img {
         width: 273px;
         margin: 0;
     }
-}
-
-ul {
-    display: none;
 }
 
 #video_cam_preview {
@@ -146,4 +142,51 @@ input {
     background: #ffffff;
     border: 1px solid #572ee5;
     border-radius: 27px;
+}
+
+nav {
+    display: flex;
+}
+
+.img_logo {
+    position: relative;
+    right: 0;
+    width: 48px;
+    height: 48px;
+}
+
+.menu-btn {
+    position: relative;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 15px;
+    height: 14px;
+}
+
+.menu-btn__burger {
+    width: 15px;
+    height: 2px;
+    background: black;
+    border-radius: 1px;
+
+    &::before,
+    &::after {
+        content: '';
+        left: 0;
+        width: 100%;
+        position: absolute;
+        height: 2px;
+        background: black;
+        border-radius: 1px;
+    }
+    &::before {
+        transform: translateY(-5px);
+    }
+    &::after {
+        transform: translateY(5px);
+        
+    }
 }

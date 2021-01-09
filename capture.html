@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/style.css">
+  <title>GIFOS</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <img src="assets/images/logo-mobile.svg" alt="GIFOS Logo" class="img_logo">
+
+      <div class="menu-btn">
+        <div class="menu-btn__burger"></div>
+      </div>
+
+      <ul>
+        <li><a href="#">Modo Nocturno</a></li>
+        <li><a href="#">Favoritos</a></li>
+        <li><a href="#">Mis GIFOS</a></li>
+      </ul>
+    </nav>
+    <div class="record_master_container">
+      <div class="record_small_container">
+        <div id="preview_message">
+          <h1>Aquí podrás crear tus propios <span>GIFOS</span></h1>
+          <p>Crea tus GIFO en sólo 3 pasos!</p>
+          <p>(sólo necesitas una cámara para grabar un video)</p>
+        </div>
+        <div id="allow_message">
+          <h2>¿Nos das acceso a tu cámara?</h2>
+          <p>
+            El acceso a tu cámara será válido sólo por el tiempo en el que estés creando el GIFO.
+          </p>
+        </div>
+      </div>
+      <div id="cam_image">
+        <div id="preview_camera">
+          <video src="" id="video_cam_preview"></video>
+        </div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">1</div>
+      <div class="step">2</div>
+      <div class="step">3</div>
+    </div>
+    <button id="btn_start">COMENZAR</button>
+    <button id="btn_record">GRABAR</button>
+    <button id="btn_stop">FINALIZAR</button>
+    <button id="btn_upload">SUBIR GIFO</button>
+
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="scripts/create.js"></script>
+</body>
+
+</html>
