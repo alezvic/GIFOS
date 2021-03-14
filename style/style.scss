@@ -17,12 +17,24 @@ $black_color: #000000;
 * {
     color: $primary_color;
     text-align: center;
-    margin: 0;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
 img {
-    width: 100px;
+    // height: 243px;
+    // max-width: 243px;
+    // display: block;
+    max-width: 243px;
+    max-height: 187px;
+    width: auto;
+    height: auto;
+}
+
+hr {
+    width: 42vw;
+    opacity: 0.5;
+    border: 1px solid #9cafc3;
 }
 
 #section_hero {
@@ -47,6 +59,10 @@ h1 {
     font-weight: 600;
     margin-left: 12vw;
     margin-right: 12vw;
+
+    & span {
+        color: $accents_color;
+    }
 }
 
 h2 {
@@ -65,6 +81,15 @@ h3 {
     line-height: 25px;
 }
 
+h4 {
+    font-family: $primary_font;
+    font-size: 16px;
+    color: $primary_color;
+    text-align: center;
+    line-height: 25px;
+    margin-top: 20px;
+}
+
 p {
     font-family: $secondary_font;
     font-size: 16px;
@@ -72,10 +97,6 @@ p {
     text-align: center;
     line-height: 23px;
     padding: 0 25px 0 25px;
-}
-
-span {
-    color: $accents_color;
 }
 
 input {
@@ -97,11 +118,11 @@ input {
     background: $background_color;
     border: 1px solid $primary_color;
     border-radius: 27px;
-    width: 89vw;
+    width: 334px;
     height: 50px;
     position: relative;
-    left: 6vw;
-    margin: 0;
+    //left: 6vw;
+    margin: 0 auto;
     .icon_search {
         position: relative;
         top: 15px;
@@ -125,20 +146,43 @@ input {
 
 #section_trending {
     background-color: $background_alt_color;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    padding: 24px 0 24px 0;
 }
 
 #btn_show_more {
     display: none;
 }
 
-.span_trending {
+#trending_links_container {
+    width: 60vw;
+    margin-bottom: 4vh;
+    font-family: $primary_font;
+    font-weight: 500;
+    font-size: 14px;
     color: $primary_color;
+    text-align: center;
+    line-height: 25px;
+}
+
+#trending_gifs_container {
+    position: relative;
+    margin-left: -50px;
+    width: 200vw;
+    height: 300px;
+    & img {
+        
+        display: inline;
+        overflow: hidden;
+    }
 }
 
 #div_suggestions {
     position: relative;
-    width: 89vw;
-    left: 6vw;
+    //display: none;
+    margin: 0 auto;
+    width: 334px;
     background: #ffffff;
     border: 1px solid #572ee5;
     border-radius: 27px;
@@ -174,7 +218,7 @@ nav {
 
     &::before,
     &::after {
-        content: '';
+        content: "";
         left: 0;
         width: 100%;
         position: absolute;
@@ -187,6 +231,5 @@ nav {
     }
     &::after {
         transform: translateY(5px);
-        
     }
 }

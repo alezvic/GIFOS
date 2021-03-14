@@ -2,7 +2,7 @@
 // 
 
 // API key
-const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
+// const api_key = '2QRBa2w3k34LbUKfXGoNpuL3Mj6sHAEQ';
 
 // GUI Elements
 const div_cam_preview = document.getElementById('video_cam_preview');
@@ -24,7 +24,7 @@ let form = new FormData();
 const upload_url = 'https://upload.giphy.com/v1/gifs';
 
 function onLoad() {
-    allow_message.style.display = 'none';
+    //allow_message.style.display = 'none';
 }
 
 function getMediaDevices() {
